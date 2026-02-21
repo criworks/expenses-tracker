@@ -64,21 +64,31 @@ npm start
 - 3.3 - Endpoint `POST /gastos` — parsear y guardar ✅
 - 3.4 - Endpoint `GET /gastos` — leer con filtros básicos ✅
 
-**Deploy** ✅
+**Deploy API** ✅
 
 - 4.1 - Subir código a GitHub ✅
 - 4.2 - Deploy en Railway → URL pública ✅
 
-**Frontend web — dashboard**
+**Frontend web — dashboard** ✅
 
-- 5.1 - Proyecto Next.js
-- 5.2 - Formulario de captura (el input en oración)
-- 5.3 - Tabla/lista de gastos del mes
-- 5.4 - Resumen por categoría
+- 5.1 - Proyecto Next.js ✅
+- 5.2 - Formulario de captura (el input en oración) ✅
+- 5.3 - Tabla/lista de gastos del mes ✅
+- 5.4 - Resumen por categoría ✅
 
 **Frontend mobile — captura**
 
-- 6.1 - Proyecto Expo
-- 6.2 - Pantalla de captura con inputs transparentes
-- 6.3 - Conectar a la API pública
+- 6.1 - Proyecto Expo ✅
+- 6.2 - Pantalla de captura con inputs transparentes ✅
+- 6.3 - Conectar a la API pública <-
 
+**Deploy Frontend**
+
+- 7.1 - Web con Vercel
+- 7.2 - Mobile con Expo
+
+**Diseño Tunning**
+
+- 8.1 - Shadcn Components
+- 8.2 - UX Upgrade
+- 8.3 - Look n feel Upgrade
