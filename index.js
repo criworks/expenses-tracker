@@ -9,7 +9,7 @@
  */
 
 const readline = require('readline')
-const { parsearGasto } = require('./parser')
+const { parsearGasto } = require('./src/parser')
 
 const RESET = '\x1b[0m'
 const BOLD = '\x1b[1m'
