@@ -12,7 +12,7 @@ app.use(
   cors({
     origin: [
       'http://localhost:3001',
-      'https://expenses-tracker-frontend-web.app', // ← tu URL de Vercel
+      'https://expenses-tracker-frontend-web.vercel.app', // ← tu URL de Vercel
     ],
   })
 )
