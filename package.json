@@ -1,0 +1,15 @@
+{
+  "name": "gastos-parser",
+  "version": "1.0.0",
+  "description": "Parser de gastos personales",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "cli": "node index.js",
+    "test": "node index.js --test"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
