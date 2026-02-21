@@ -1,4 +1,47 @@
-ROADMAP
+## Expense Tracker
+
+Herramienta personal para registrar gastos de forma rápida y sin fricción.
+La idea es simple: escribir un gasto en lenguaje casi natural, que el sistema lo entienda y lo organice solo. Sin formularios complejos, sin usar Notion ni GSheets ni Excel, sin el dolor de registrar todo un sábado mirando movimientos bancarios.
+El foco está en la captura — si eso es fácil, el resto funciona.
+
+# Stack
+
+- Backend / API — Node.js + Express
+- Base de datos — Supabase (Postgres)
+- Frontend web — Next.js
+- Mobile — Expo (React Native)
+
+# Formato de entrada
+
+```
+monto, item, categoría, fecha, método
+```
+
+```
+45000, uber, transporte, ayer, ef
+12k, rappi, , hoy, tc
+590000, arriendo, básicos, 5, tc
+```
+
+Delimitadores aceptados: `, | - /`
+Categoría y fecha opcionales.
+Método default: TC.
+
+# Uso local
+
+```
+# bash
+npm install
+
+# CLI
+npm run cli
+npm test
+
+# Servidor
+npm start
+```
+
+# Roadmap
 
 **Definición** ✅
 
@@ -14,17 +57,17 @@ ROADMAP
 - 2.4 - Date parser ✅
 - 2.5 - CLI interactivo con suite de tests ✅
 
-**API** ✅ / 🔄
+**API** ✅
 
 - 3.1 - Servidor Express + endpoint `POST /gastos/parsear` ✅
-- 3.2 - Supabase: crear proyecto y tabla ← _estás acá_
-- 3.3 - Endpoint `POST /gastos` — parsear y guardar
-- 3.4 - Endpoint `GET /gastos` — leer con filtros básicos
+- 3.2 - Supabase: crear proyecto y tabla **✅
+- 3.3 - Endpoint `POST /gastos` — parsear y guardar ✅
+- 3.4 - Endpoint `GET /gastos` — leer con filtros básicos ✅
 
-**Deploy**
+**Deploy** 🔄
 
-- 4.1 - Subir código a GitHub
-- 4.2 - Deploy en Railway → URL pública
+- 4.1 - Subir código a GitHub ✅
+- 4.2 - Deploy en Railway → URL pública 🔄
 
 **Frontend web — dashboard**
 
@@ -38,3 +81,4 @@ ROADMAP
 - 6.1 - Proyecto Expo
 - 6.2 - Pantalla de captura con inputs transparentes
 - 6.3 - Conectar a la API pública
+
