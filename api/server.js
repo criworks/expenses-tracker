@@ -8,7 +8,14 @@ const supabase = require('./src/supabase')
 const app = express()
 const PORT = process.env.PORT || 3000
 
-app.use(cors())
+app.use(
+  cors({
+    origin: [
+      'http://localhost:3001',
+      'https://expenses-tracker-frontend-web.app', // ← tu URL de Vercel
+    ],
+  })
+)
 app.use(express.json())
 
 // ── POST /gastos/parsear ────────────────────────────────────────────────────
