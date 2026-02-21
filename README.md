@@ -76,16 +76,16 @@ npm start
 - 5.3 - Tabla/lista de gastos del mes ✅
 - 5.4 - Resumen por categoría ✅
 
-**Frontend mobile — captura**
+**Frontend mobile — captura** ✅
 
 - 6.1 - Proyecto Expo ✅
 - 6.2 - Pantalla de captura con inputs transparentes ✅
-- 6.3 - Conectar a la API pública <-
+- 6.3 - Conectar a la API pública ✅
 
-**Deploy Frontend**
+**Deploy Frontend** ✅
 
-- 7.1 - Web con Vercel
-- 7.2 - Mobile con Expo
+- 7.1 - Web con Vercel ✅
+- 7.2 - Mobile con Expo ✅
 
 **Diseño Tunning**
 
