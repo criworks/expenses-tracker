@@ -1,12 +1,14 @@
-require('dotenv').config({ path: '../.env' })
+require('dotenv').config()
 
 const express = require('express')
+const cors = require('cors')
 const { parsearGasto } = require('./src/parser')
 const supabase = require('./src/supabase')
 
 const app = express()
 const PORT = process.env.PORT || 3000
 
+app.use(cors())
 app.use(express.json())
 
 // ── POST /gastos/parsear ────────────────────────────────────────────────────
@@ -79,16 +81,11 @@ app.post('/gastos', async (req, res) => {
 })
 
 // ── GET /gastos ─────────────────────────────────────────────────────────────
-// Query params opcionales:
-//   ?mes=2           → número de mes (1-12)
-//   ?categoria=Ocio  → nombre exacto de categoría
 app.get('/gastos', async (req, res) => {
   const { mes, categoria } = req.query
 
   let query = supabase.from('gastos').select('*').order('creado_en', { ascending: false })
 
-  // Filtro por mes: la fecha está guardada como "DD/MM/YYYY"
-  // filtramos con ilike sobre el patrón "/MM/"
   if (mes) {
     const mesNum = parseInt(mes, 10)
     if (isNaN(mesNum) || mesNum < 1 || mesNum > 12) {
@@ -102,7 +99,6 @@ app.get('/gastos', async (req, res) => {
     query = query.ilike('fecha', `%/${mesPad}/%`)
   }
 
-  // Filtro por categoría
   if (categoria) {
     query = query.ilike('categoria', categoria)
   }
@@ -118,7 +114,6 @@ app.get('/gastos', async (req, res) => {
     })
   }
 
-  // Total sumado de los gastos devueltos
   const total = data.reduce((acc, g) => acc + g.monto, 0)
   const totalFormateado = `$${total.toLocaleString('es-CL')}`
 
