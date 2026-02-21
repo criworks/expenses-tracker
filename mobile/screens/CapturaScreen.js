@@ -1,14 +1,14 @@
-import { useState, useRef } from 'react'
+import { useRef, useState } from 'react'
 import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
+  ActivityIndicator,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
-  ActivityIndicator,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from 'react-native'
 
 const API_URL = 'https://expenses-tracker-deploy.up.railway.app'
@@ -84,7 +84,7 @@ export default function CapturaScreen() {
   return (
     <KeyboardAvoidingView
       style={styles.container}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'undefined'}
     >
       <ScrollView contentContainerStyle={styles.scroll} keyboardShouldPersistTaps="handled">
         <Text style={styles.header}>expenses</Text>

@@ -1,10 +1,10 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import { NavigationContainer } from '@react-navigation/native'
 import { Text } from 'react-native'
 import CapturaScreen from './screens/CapturaScreen'
 import DashboardScreen from './screens/DashboardScreen'
 
-const Tab = createBottomTabNavigator()
+const Tab = createMaterialTopTabNavigator()
 
 export default function App() {
   return (
@@ -27,6 +27,10 @@ export default function App() {
             letterSpacing: 3,
             textTransform: 'uppercase',
           },
+          tabBarItemStyle: {
+            flexDirection: 'row',
+            gap: 8,
+          },
         }}
       >
         <Tab.Screen
@@ -34,7 +38,7 @@ export default function App() {
           component={CapturaScreen}
           options={{
             tabBarLabel: 'nuevo',
-            tabBarIcon: ({ color }) => <Text style={{ color, fontSize: 16 }}>+</Text>,
+            tabBarIcon: ({ color }) => <Text style={{ color, fontSize: 14 }}>+</Text>,
           }}
         />
         <Tab.Screen
