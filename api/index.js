@@ -144,7 +144,7 @@ function modoInteractivo() {
       return
     }
     if (input === '.salir' || input === '.exit') {
-      console.log('Chao 👋')
+      console.log('Chaito 👋 Muac 💋')
       rl.close()
       return
     }

@@ -1,0 +1,17 @@
+{
+  "name": "expenses-tracker-api",
+  "version": "1.0.0",
+  "description": "Core Parser + API",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "cli": "node index.js",
+    "test": "node index.js --test"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.0",
+    "dotenv": "^16.4.1",
+    "express": "^4.18.2"
+  }
+}

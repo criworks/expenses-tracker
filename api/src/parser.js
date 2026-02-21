@@ -20,8 +20,8 @@
  * - METODO:    opcional (default: TC). Acepta: ef, efectivo, tc, tarjeta, crédito
  */
 
-const { categorizar } = require('../categorizer')
-const { parsearFecha } = require('../dateParser')
+const { categorizar } = require('./categorizer')
+const { parsearFecha } = require('./dateParser')
 
 // Métodos de pago normalizados
 const METODOS = {
