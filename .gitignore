@@ -195,3 +195,9 @@ plan.md
 CLAUDE.md
 .claude/
 .claude/*
+GEMINI.md
+REPORT.md
+AGENTS.md
+SKILL.md
+.agents/*
+.agents/
