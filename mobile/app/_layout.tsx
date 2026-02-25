@@ -9,8 +9,14 @@ import { Stack } from 'expo-router'
 import * as SplashScreen from 'expo-splash-screen'
 import { StatusBar } from 'expo-status-bar'
 import { useEffect } from 'react'
+import { LogBox } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import '../global.css'
+
+// Ignore third-party deprecation warnings for React Native 0.81
+LogBox.ignoreLogs([
+  "SafeAreaView has been deprecated and will be removed in a future release.",
+])
 
 // Prevent splash screen from auto-hiding
 SplashScreen.preventAutoHideAsync()
