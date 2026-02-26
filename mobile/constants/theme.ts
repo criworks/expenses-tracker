@@ -3,18 +3,18 @@ import { KeyboardTypeOptions } from 'react-native'
 export const API_URL = 'https://expenses-tracker-deploy.up.railway.app'
 
 export const MESES = [
-  'Ene',
-  'Feb',
-  'Mar',
-  'Abr',
-  'May',
-  'Jun',
-  'Jul',
-  'Ago',
-  'Sep',
-  'Oct',
-  'Nov',
-  'Dic',
+  'Enero',
+  'Febrero',
+  'Marzo',
+  'Abril',
+  'Mayo',
+  'Junio',
+  'Julio',
+  'Agosto',
+  'Septiembre',
+  'Octubre',
+  'Noviembre',
+  'Diciembre',
 ]
 
 export const COLORES_CAT: Record<string, string> = {
@@ -26,6 +26,17 @@ export const COLORES_CAT: Record<string, string> = {
   Delivery: '#a67c52',
   Transporte: '#4a7a8a',
   'Sin categoría': '#444',
+}
+
+export const EMOJIS_CAT: Record<string, string> = {
+  Básicos: '🏠',
+  Mercado: '🛒',
+  Suscripciones: '💳',
+  Transporte: '🚌',
+  Ocio: '☕️',
+  Delivery: '💣',
+  Inversión: '🌱',
+  'Sin categoría': '💸',
 }
 
 export type CampoClave = 'monto' | 'item' | 'categoria' | 'fecha'
