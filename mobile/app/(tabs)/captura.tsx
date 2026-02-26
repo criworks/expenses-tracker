@@ -11,8 +11,10 @@ import {
 } from 'react-native'
 import { CAMPOS_CAPTURA as CAMPOS, CampoClave } from '../../constants/theme'
 import { useGastoMutation } from '../../hooks/useGastoMutation'
+import { useGastos } from '../../hooks/useGastos'
 
 export default function CapturaScreen() {
+  const { fetchGastos } = useGastos()
   const {
     valores,
     metodo,
@@ -36,6 +38,7 @@ export default function CapturaScreen() {
 
   const handleGuardar = () => {
     guardarGasto(() => {
+      fetchGastos(true)
       setTimeout(() => refs.current['monto']?.focus(), 100)
     })
   }
