@@ -1,18 +1,26 @@
-import { ActivityIndicator, RefreshControl, ScrollView, Text, View } from 'react-native'
-import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
-import { COLORES_CAT, MESES } from '../../constants/theme'
-import { useGastos } from '../../hooks/useGastos'
+import React from 'react';
+import { View, Text, FlatList, Pressable, ActivityIndicator, RefreshControl } from 'react-native';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useRouter } from 'expo-router';
+import { Feather } from '@expo/vector-icons';
+import { useGastos } from '../../hooks/useGastos';
+import { MESES, EMOJIS_CAT } from '../../constants/theme';
 
 export default function CategoriasScreen() {
-  const { mes, loading, refreshing, fetchGastos, categorias, totalMes } = useGastos()
-  const insets = useSafeAreaInsets()
+  const router = useRouter();
+  const { mes, loading, refreshing, fetchGastos, categorias, totalMes } = useGastos();
+  const insets = useSafeAreaInsets();
+  
   // El GradientFooter tiene altura 200px aquí (sin emojis), usamos 140 + insets.bottom para no tener exceso de scroll vacío
-  const listPaddingBottom = 140 + insets.bottom
+  const listPaddingBottom = 140 + insets.bottom;
 
   return (
     <SafeAreaView edges={['top', 'left', 'right']} className="flex-1 bg-[#111217]">
-      <ScrollView
+      <FlatList
+        data={categorias}
+        keyExtractor={([cat]) => cat}
         contentContainerStyle={{ paddingHorizontal: 24, paddingTop: 24, paddingBottom: listPaddingBottom }}
+        showsVerticalScrollIndicator={false}
         refreshControl={
           <RefreshControl
             refreshing={refreshing}
@@ -20,62 +28,71 @@ export default function CategoriasScreen() {
             tintColor="#262A35"
           />
         }
-        showsVerticalScrollIndicator={false}
-      >
-        {loading ? (
-          <ActivityIndicator color="#262A35" className="mt-[24px]" />
-        ) : (
+        ListHeaderComponent={
           <>
             {/* Header */}
-            <View className="mt-[24px] mb-[24px]">
-              <Text className="text-[#60677D] text-[24px] font-medium mb-[8px]">
-                {MESES[mes - 1]}
-              </Text>
-              <Text className="text-white text-[16px] font-medium">
-                Por categoría
-              </Text>
-            </View>
-
-            {/* Lista por categoría */}
             <View className="mb-[24px]">
-              {categorias.length === 0 ? (
-                <Text className="text-[#60677D] text-[14px] font-medium">No hay datos para este mes</Text>
+              {loading && !categorias.length ? (
+                <>
+                  <View className="h-[24px] w-[120px] bg-[#262A35] rounded-full mb-[8px]" />
+                  <View className="h-[16px] w-[80px] bg-[#262A35] rounded-full" />
+                </>
               ) : (
-                categorias.map(([cat, info]) => {
-                  const pct = totalMes > 0 ? (info.total / totalMes) * 100 : 0
-                  // Sustituimos #444 por el token oficial #262A35
-                  const color = COLORES_CAT[cat] ?? '#262A35'
-                  
-                  return (
-                    <View key={cat} className="mb-[24px]">
-                      <View className="flex-row justify-between mb-[8px]">
-                        <Text className="text-[#ffffff] text-[14px] font-medium">
-                          {cat}
-                        </Text>
-                        <Text className="text-white text-[14px] font-medium">
-                          ${info.total.toLocaleString('es-CL')}
-                        </Text>
-                      </View>
-                      
-                      {/* Barra de progreso */}
-                      <View className="h-[8px] bg-[#262A35] w-full rounded-full overflow-hidden">
-                        <View
-                          className="h-[8px] rounded-full"
-                          style={{ width: `${pct}%`, backgroundColor: color }}
-                        />
-                      </View>
-                      
-                      <Text className="text-[#60677D] text-[12px] font-medium mt-[8px]">
-                        {info.cantidad} {info.cantidad === 1 ? 'gasto' : 'gastos'} · {pct.toFixed(1)}%
-                      </Text>
-                    </View>
-                  )
-                })
+                <>
+                  <Text className="text-[#60677D] text-[24px] font-medium mb-[8px]">{MESES[mes - 1]}</Text>
+                  <Text className="text-white text-[16px] font-medium">
+                    ${totalMes.toLocaleString('es-CL')}
+                  </Text>
+                </>
               )}
             </View>
+
+            {/* Nueva Categoría Action */}
+            <Pressable 
+              className="flex-row items-center gap-[12px] mb-[24px] active:opacity-80"
+              onPress={() => router.push('/captura')}
+            >
+              <View className="bg-[#262A35] rounded-full w-[32px] h-[32px] items-center justify-center">
+                <Feather name="plus" size={16} color="#60677D" />
+              </View>
+              <Text className="text-[#60677D] text-[16px] font-medium">Nueva categoría</Text>
+            </Pressable>
+            
+            {loading && !categorias.length && (
+              <View className="gap-[16px]">
+                {[1, 2, 3, 4].map((item) => (
+                  <View key={item} className="flex-row items-center gap-[12px]">
+                    <View className="h-[36px] w-[80px] bg-[#262A35] rounded-full" />
+                    <View className="h-[32px] w-[32px] bg-[#262A35] rounded-full" />
+                    <View className="h-[16px] w-[100px] bg-[#262A35] rounded-full" />
+                  </View>
+                ))}
+              </View>
+            )}
+
+            {!loading && categorias.length === 0 && (
+              <Text className="text-[#60677D] text-[14px] font-medium">No hay datos para este mes</Text>
+            )}
           </>
-        )}
-      </ScrollView>
+        }
+        renderItem={({ item: [cat, info] }) => {
+          const emoji = EMOJIS_CAT[cat] || '💸'; // Default a 💸 si no hay emoji asignado en el theme
+
+          return (
+            <View className="flex-row items-center gap-[12px] mb-[16px]">
+              <View className="bg-[#262A35] rounded-full px-[16px] py-[8px]">
+                <Text className="text-white text-[14px] font-medium">
+                  ${info.total.toLocaleString('es-CL')}
+                </Text>
+              </View>
+              <View className="bg-[#262A35] rounded-full w-[32px] h-[32px] items-center justify-center">
+                <Text className="text-[14px]">{emoji}</Text>
+              </View>
+              <Text className="text-[#60677D] text-[16px] font-medium">{cat}</Text>
+            </View>
+          );
+        }}
+      />
     </SafeAreaView>
-  )
+  );
 }
