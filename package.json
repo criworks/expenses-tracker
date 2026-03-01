@@ -3,6 +3,12 @@
   "version": "1.0.0",
   "description": "Personal Expenses Tracker",
   "private": true,
+  "workspaces": [
+    "packages/*",
+    "web",
+    "mobile",
+    "api"
+  ],
   "scripts": {
     "api": "npm run dev --prefix api",
     "web": "npm run dev --prefix web",

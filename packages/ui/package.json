@@ -1,0 +1,9 @@
+{
+  "name": "@expenses/ui",
+  "version": "1.0.0",
+  "description": "Shared design tokens and UI primitives",
+  "main": "tokens.js",
+  "exports": {
+    "./tokens": "./tokens.js"
+  }
+}

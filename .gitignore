@@ -192,12 +192,13 @@ tmp/*
 
 plan.md
 
-CLAUDE.md
 .claude/
-.claude/*
+CLAUDE.md
+.gemini/
 GEMINI.md
 REPORT.md
 AGENTS.md
 SKILL.md
-.agents/*
 .agents/
+ai-setup/
+design/

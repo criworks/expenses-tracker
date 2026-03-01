@@ -1,7 +1,7 @@
-import { Tabs } from 'expo-router'
-import { GradientFooter } from '../../components/ui/GradientFooter'
-import { FilterProvider } from '../../contexts/FilterContext'
-import { GastosProvider } from '../../contexts/GastosContext'
+import { Tabs } from 'expo-router';
+import { GradientFooter } from '../../components/ui/GradientFooter';
+import { FilterProvider } from '../../contexts/FilterContext';
+import { GastosProvider } from '../../contexts/GastosContext';
 
 export default function TabLayout() {
   return (
@@ -12,13 +12,14 @@ export default function TabLayout() {
           tabBar={(props) => <GradientFooter {...props} />}
           screenOptions={{
             headerShown: false,
-            // Al usar un Custom Tab Bar con posición absoluta (transparente), 
-            // a veces es útil asegurarse de que el fondo subyacente de la página 
+            // Al usar un Custom Tab Bar con posición absoluta (transparente),
+            // a veces es útil asegurarse de que el fondo subyacente de la página
             // ocupe el espacio sin ser empujado.
           }}
         >
           <Tabs.Screen name="index" />
           <Tabs.Screen name="categorias" />
+          <Tabs.Screen name="configuraciones" />
           <Tabs.Screen name="captura" />
         </Tabs>
       </GastosProvider>

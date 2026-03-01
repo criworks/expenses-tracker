@@ -5,6 +5,17 @@ All notable changes to the **Expense Tracker (Mobile)** project will be document
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] - 2026-02-28
+### Added
+- **React Native Reusables (RNR):** Added integration with `@react-native-reusables/cli`.
+- **UI Theme Configuration:** Created `lib/theme.ts` with `NAV_THEME` for `react-navigation` color synchronization.
+- **Utils File:** Created `lib/utils.ts` providing the `cn()` utility for Tailwind class merging.
+- **CSS Variables:** Mapped strict Shadcn UI CSS variables (e.g. `--background`, `--card`, `--radius`) into `global.css` for both light and dark (`.dark`) themes.
+
+### Changed
+- **Tailwind Configuration:** Expanded `tailwind.config.js` to dynamically read HSL CSS variables for accurate component styling and injected radius calculations.
+
+
 ## [1.1.0] - 2026-02-25
 ### Added
 - **Global State Context:** Implemented `GastosContext` to serve as a Single Source of Truth for sharing expense data across tabs.
