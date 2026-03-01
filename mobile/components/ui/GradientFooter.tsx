@@ -18,10 +18,14 @@ export function GradientFooter(props: BottomTabBarProps) {
   // Averiguar qué ruta está activa
   const routeName = props.state.routeNames[props.state.index];
   const isGastosActive = routeName === 'index';
+  const isCapturaActive = routeName === 'captura';
   const isCategoriasActive = routeName === 'categorias';
+  const isConfiguracionesActive = routeName === 'configuraciones';
 
-  // Altura dinámica: 280px para Gastos (con emojis), 200px para Categorías (sin emojis)
-  const gradientHeight = isGastosActive ? 280 : 200;
+  // Altura dinámica: 280px para Gastos (con emojis), 200px para Categorías (sin emojis), 120px para Configuraciones
+  let gradientHeight = 200;
+  if (isGastosActive) gradientHeight = 280;
+  else if (isConfiguracionesActive) gradientHeight = 120;
 
   const { selectedCategory, setSelectedCategory, availableCategories } = useFilter();
 
@@ -77,46 +81,60 @@ export function GradientFooter(props: BottomTabBarProps) {
         )}
 
         {/* Filters Row */}
-        <View className="flex-row justify-center items-center gap-[24px] mb-[24px] px-[24px]">
-          <Pressable 
-            className={`rounded-full px-[16px] py-[8px] active:opacity-80 ${isGastosActive ? 'bg-[#262A35]' : ''}`}
-            onPress={() => props.navigation.navigate('index')}
-          >
-            <Text className={`text-[14px] font-medium ${isGastosActive ? 'text-[#ffffff]' : 'text-[#60677D]'}`}>
-              Mes en curso
-            </Text>
-          </Pressable>
-          
-          <Pressable 
-            className={`rounded-full px-[16px] py-[8px] active:opacity-80 ${isCategoriasActive ? 'bg-[#262A35]' : ''}`}
-            onPress={() => props.navigation.navigate('categorias')}
-          >
-            <Text className={`text-[14px] font-medium ${isCategoriasActive ? 'text-[#ffffff]' : 'text-[#60677D]'}`}>
-              Categorías
-            </Text>
-          </Pressable>
+        {!isConfiguracionesActive && (
+          <View className="flex-row justify-center items-center gap-[24px] mb-[24px] px-[24px]">
+            <Pressable 
+              className={`rounded-full px-[16px] py-[8px] active:opacity-80 ${isGastosActive ? 'bg-[#262A35]' : ''}`}
+              onPress={() => props.navigation.navigate('index')}
+            >
+              <Text className={`text-[14px] font-medium ${isGastosActive ? 'text-[#ffffff]' : 'text-[#60677D]'}`}>
+                Mes en curso
+              </Text>
+            </Pressable>
+            
+            <Pressable 
+              className={`rounded-full px-[16px] py-[8px] active:opacity-80 ${isCategoriasActive ? 'bg-[#262A35]' : ''}`}
+              onPress={() => props.navigation.navigate('categorias')}
+            >
+              <Text className={`text-[14px] font-medium ${isCategoriasActive ? 'text-[#ffffff]' : 'text-[#60677D]'}`}>
+                Categorías
+              </Text>
+            </Pressable>
 
-          <Pressable className="active:opacity-80">
-            <Text className="text-[#60677D] text-[14px] font-medium">Métodos</Text>
-          </Pressable>
-        </View>
+            <Pressable className="active:opacity-80">
+              <Text className="text-[#60677D] text-[14px] font-medium">Métodos</Text>
+            </Pressable>
+          </View>
+        )}
 
         {/* Main Nav Row */}
         <View className="flex-row items-center justify-between px-[24px]">
           <View className="flex-row items-center gap-[24px]">
-            <Pressable className="active:opacity-80">
-              <Feather name="settings" size={24} color="#60677D" />
-            </Pressable>
+            {isConfiguracionesActive ? (
+              <Pressable className="active:opacity-80" onPress={() => props.navigation.navigate('index')}>
+                <Feather name="list" size={24} color="#60677D" />
+              </Pressable>
+            ) : (
+              <Pressable 
+                className="active:opacity-80"
+                onPress={() => props.navigation.navigate('configuraciones')}
+              >
+                <Feather name="settings" size={24} color="#60677D" />
+              </Pressable>
+            )}
             <Pressable className="active:opacity-80">
               <Feather name="bell" size={24} color="#60677D" />
             </Pressable>
             
-            {/* Gastos Active Tab */}
             <Pressable 
               className="bg-[#262A35] rounded-full px-[24px] py-[12px] active:opacity-80"
-              onPress={() => props.navigation.navigate('index')}
+              onPress={() => {
+                if (!isConfiguracionesActive) props.navigation.navigate('index');
+              }}
             >
-              <Text className="text-[#ffffff] text-[14px] font-medium">Gastos</Text>
+              <Text className="text-[#ffffff] text-[14px] font-medium">
+                {isConfiguracionesActive ? 'Configuraciones' : 'Gastos'}
+              </Text>
             </Pressable>
           </View>
         </View>
@@ -125,13 +143,15 @@ export function GradientFooter(props: BottomTabBarProps) {
       {/* FAB (+) */}
       {/* El botón de crear redirige a la pantalla "captura" 
           También ajustamos el bottom dinámicamente para que flote sobre el tab principal */}
-      <Pressable 
-        className="absolute right-[24px] w-[56px] h-[56px] bg-[#ffffff] rounded-full items-center justify-center shadow-lg active:opacity-80"
-        style={{ bottom: safePaddingBottom }}
-        onPress={() => props.navigation.navigate('captura')}
-      >
-        <Feather name="plus" size={24} color="#111217" />
-      </Pressable>
+      {!isCapturaActive && (
+        <Pressable 
+          className="absolute right-[24px] w-[56px] h-[56px] bg-[#ffffff] rounded-full items-center justify-center shadow-lg active:opacity-80"
+          style={{ bottom: safePaddingBottom }}
+          onPress={() => props.navigation.navigate('captura')}
+        >
+          <Feather name="plus" size={24} color="#111217" />
+        </Pressable>
+      )}
     </View>
   );
 }
