@@ -28,7 +28,12 @@
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 100%;
 
+    --warning: 36 100% 46%; /* #E98B00 */
+    --warning-foreground: 0 0% 100%;
+    --warning-border: 36 100% 18%; /* #5B3600 */
+
     --border: 224 16% 18%;
+    --border-active: 223 14% 24%; /* #353A47 */
     --input: 224 16% 18%;
     --ring: 226 13% 43%;
     
@@ -59,7 +64,12 @@
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 100%;
 
+    --warning: 36 100% 46%;
+    --warning-foreground: 0 0% 100%;
+    --warning-border: 36 100% 18%;
+
     --border: 224 16% 18%;
+    --border-active: 223 14% 24%;
     --input: 224 16% 18%;
     --ring: 226 13% 43%;
     
