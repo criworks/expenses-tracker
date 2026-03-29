@@ -14,7 +14,7 @@ export const colors = {
   // Bordes
   border:       "#1a1a1a",
   borderMuted:  "#222222",
-  borderActive: "#555555",
+  borderActive: "#353A47",
 
   // Texto
   text:         "#ffffff",
@@ -24,7 +24,8 @@ export const colors = {
   // Estados
   success:  "#4a7c59",
   error:    "#a65b5b",
-  warning:  "#8a6d3b",
+  warning:  "#E98B00",
+  warningBorder: "#5B3600",
 
   // Categorías
   cat: {

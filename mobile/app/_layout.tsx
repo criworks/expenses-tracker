@@ -14,6 +14,7 @@ import { LogBox } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { AuthProvider, useAuth } from '../contexts/AuthContext'
 import '../global.css'
+import '../lib/icons'
 
 // Ignore third-party deprecation warnings for React Native 0.81
 LogBox.ignoreLogs([
