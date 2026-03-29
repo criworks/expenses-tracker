@@ -111,7 +111,7 @@ export function GradientFooter(props: BottomTabBarProps) {
           
           {/* Bell (Idle only for now) */}
           <Pressable className="w-[48px] h-[48px] items-center justify-center rounded-full active:opacity-80">
-            <BellSimple size={24} color="hsl(var(--muted-foreground))" weight="fill" />
+            <BellSimple size={24} className="text-muted-foreground" weight="fill" />
           </Pressable>
 
           {/* Configuraciones Item */}
@@ -119,7 +119,7 @@ export function GradientFooter(props: BottomTabBarProps) {
             className={`w-[48px] h-[48px] items-center justify-center rounded-full active:opacity-80 ${isConfiguracionesActive ? 'bg-secondary' : ''}`}
             onPress={() => props.navigation.navigate('configuraciones')}
           >
-            <Nut size={24} color={isConfiguracionesActive ? "hsl(var(--foreground))" : "hsl(var(--muted-foreground))"} weight="fill" />
+            <Nut size={24} className={isConfiguracionesActive ? "text-foreground" : "text-muted-foreground"} weight="fill" />
           </Pressable>
 
           {/* Gastos Item */}
@@ -127,7 +127,7 @@ export function GradientFooter(props: BottomTabBarProps) {
             className={`w-[48px] h-[48px] items-center justify-center rounded-full active:opacity-80 ${isGastosActive ? 'bg-secondary' : ''}`}
             onPress={() => props.navigation.navigate('index')}
           >
-            <CardsThree size={24} color={isGastosActive ? "hsl(var(--foreground))" : "hsl(var(--muted-foreground))"} weight="fill" />
+            <CardsThree size={24} className={isGastosActive ? "text-foreground" : "text-muted-foreground"} weight="fill" />
           </Pressable>
 
         </View>
@@ -138,14 +138,14 @@ export function GradientFooter(props: BottomTabBarProps) {
             className="w-[48px] h-[48px] bg-primary rounded-full items-center justify-center active:opacity-80"
             onPress={() => DeviceEventEmitter.emit('submitCaptura')}
           >
-            <Check size={24} color="hsl(var(--primary-foreground))" weight="bold" />
+            <Check size={24} className="text-primary-foreground" weight="bold" />
           </Pressable>
         ) : (
           <Pressable
             className="w-[48px] h-[48px] bg-primary rounded-full items-center justify-center active:opacity-80"
             onPress={() => props.navigation.navigate('captura')}
           >
-            <Plus size={24} color="hsl(var(--primary-foreground))" weight="bold" />
+            <Plus size={24} className="text-primary-foreground" weight="bold" />
           </Pressable>
         )}
         

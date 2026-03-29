@@ -5,6 +5,17 @@ All notable changes to the **Expense Tracker (Mobile)** project will be document
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.4.1] - 2026-03-28
+### Added
+- **Global `cssInterop`:** Created `lib/icons.ts` to natively support mapping Tailwind semantic classes to `color` props on external SVGs (`@expo/vector-icons`, `phosphor-react-native`).
+
+### Changed
+- **NativeWind Prop Migrations:** Removed broken `color="hsl(...)"` properties across `cuenta.tsx`, `captura.tsx`, and `GradientFooter.tsx`. Delegated all color handling strictly to `className` modifiers.
+- **TextInput Placeholders & Cursors:** Removed manual `placeholderTextColor` and `cursorColor` definitions globally. Switched to `placeholder:text-muted-foreground caret-foreground` via Tailwind NativeWind syntax.
+
+### Fixed
+- **Black Icon & Placeholder Glitch:** Fixed a critical rendering issue where React Native core failed to parse CSS variables inside non-style props, defaulting all dynamic inputs and vectors to black.
+
 ## [1.4.0] - 2026-03-25
 ### Added
 - **Design Tokens Sync:** Dynamic import of typography and spacing scales in `tailwind.config.js` pointing directly to the monorepo's single source of truth (`packages/ui/tokens.js`).
@@ -91,4 +102,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Addressed iOS/Android keyboard flickering (glitches) between numeric and text input transitions using a 100ms debounce in keyboard hide listeners.
 - Prevented keyboard from overlapping the `captura.tsx` form.
-

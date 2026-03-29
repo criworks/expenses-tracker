@@ -137,13 +137,11 @@ export default function CapturaScreen() {
               value={formattedAmount}
               onChangeText={handleAmountChange}
               placeholder="0"
-              placeholderTextColor="hsl(var(--muted-foreground))"
               keyboardType="numeric"
               returnKeyType="next"
               onSubmitEditing={() => descripcionRef.current?.focus()}
-              cursorColor="hsl(var(--foreground))"
               autoFocus={true}
-              className={`text-[40px] font-light p-0 m-0 min-w-[30px] text-right ${valores.monto ? 'text-foreground' : 'text-muted-foreground'}`}
+              className={`text-[40px] font-light p-0 m-0 min-w-[30px] text-right placeholder:text-muted-foreground caret-foreground ${valores.monto ? 'text-foreground' : 'text-muted-foreground'}`}
             />
           </View>
 
@@ -153,12 +151,10 @@ export default function CapturaScreen() {
               value={valores.item}
               onChangeText={(val) => handleChange('item', val)}
               placeholder="Descripción..."
-              placeholderTextColor="hsl(var(--muted-foreground))"
               maxLength={40}
               returnKeyType="done"
               onSubmitEditing={() => Keyboard.dismiss()}
-              cursorColor="hsl(var(--foreground))"
-              className={`flex-1 text-[14px] text-right p-0 m-0 w-full ${valores.item ? 'text-foreground' : 'text-muted-foreground'}`}
+              className={`flex-1 text-[14px] text-right p-0 m-0 w-full placeholder:text-muted-foreground caret-foreground ${valores.item ? 'text-foreground' : 'text-muted-foreground'}`}
             />
           </View>
 
@@ -167,11 +163,11 @@ export default function CapturaScreen() {
               className="flex-row px-[12px] py-[8px] justify-center items-center gap-[8px] rounded-full bg-secondary"
               onPress={() => setShowDatePicker(true)}
             >
-              <Feather name="calendar" size={16} color="hsl(var(--muted-foreground))" />
+              <Feather name="calendar" size={16} className="text-muted-foreground" />
               <Text className={`text-[14px] font-medium ${valores.fecha ? 'text-foreground' : 'text-muted-foreground'}`}>
                 {valores.fecha || 'Hoy'}
               </Text>
-              <Feather name="chevron-down" size={16} color="hsl(var(--muted-foreground))" />
+              <Feather name="chevron-down" size={16} className="text-muted-foreground" />
             </Pressable>
           </View>
         </View>

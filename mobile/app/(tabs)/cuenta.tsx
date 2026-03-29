@@ -140,7 +140,7 @@ export default function CuentaScreen() {
                     className={`w-full pr-[48px] ${isEditing || isVerifying ? 'border-2 border-muted-foreground' : 'border border-transparent'}`}
                   />
                   <View className="absolute right-[16px] pointer-events-none">
-                    <PencilSimple size={18} color="hsl(var(--muted-foreground))" weight="fill" />
+                    <PencilSimple size={18} className="text-muted-foreground" weight="fill" />
                   </View>
                 </View>
               </View>
@@ -165,7 +165,7 @@ export default function CuentaScreen() {
                 <View className="w-full flex-col items-center gap-[24px]">
                   <View className="w-full p-[24px] flex-col items-start gap-[16px] rounded-[16px] border border-warning-border">
                     <View className="flex-row items-start gap-[16px]">
-                      <WarningCircle size={18} color="hsl(var(--warning))" weight="fill" />
+                      <WarningCircle size={18} className="text-warning" weight="fill" />
                       <Text className="flex-1 text-warning font-['Inter'] text-[12px] font-normal leading-[normal]">
                         Ingresa el código de 6 dígitos que enviamos a tu nuevo email para confirmar el cambio.
                       </Text>
