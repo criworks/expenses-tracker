@@ -137,6 +137,52 @@ app.get('/gastos', requireAuth, async (req, res) => {
   })
 })
 
+// ── GET /gastos/anuales ─ Ruta protegida ───────────────────────────────────────────────────────────
+app.get('/gastos/anuales', requireAuth, async (req, res) => {
+  const supabase = createSupabaseClient(req.token)
+  const { anio } = req.query
+
+  if (!anio || isNaN(parseInt(anio, 10))) {
+    return res.status(400).json({
+      ok: false,
+      errores: ["El parámetro 'anio' es requerido y debe ser numérico"],
+      datos: null,
+    })
+  }
+
+  const { data, error } = await supabase
+    .from('gastos')
+    .select('monto, fecha')
+    .eq('user_id', req.user.sub)
+    .ilike('fecha', `%/${anio}`)
+
+  if (error) {
+    console.error('Supabase error:', error)
+    return res.status(500).json({
+      ok: false,
+      errores: ['Error al leer de base de datos'],
+      datos: null,
+    })
+  }
+
+  const totales = Array(12).fill(0)
+  for (const gasto of data) {
+    const parts = gasto.fecha.split('/')
+    if (parts.length === 3) {
+      const mesIndex = parseInt(parts[1], 10) - 1
+      if (mesIndex >= 0 && mesIndex < 12) {
+        totales[mesIndex] += gasto.monto
+      }
+    }
+  }
+
+  return res.status(200).json({
+    ok: true,
+    anio,
+    totales,
+  })
+})
+
 // UptimeRobot pingea /health cada 5 min y evita que el free tier Render duerma tras 15 min de inactividad. Registrar la URL de la API en UptimeRobot (uptimerobot.com, gratis)
 app.get('/health', (req, res) => {
   res.status(200).json({ status: 'ok', timestamp: new Date().toISOString() })
