@@ -1,3 +1,15 @@
+# CHANGELOG
+
+## [1.5.2] - 2026-04-03
+### Changed
+- **Login Flow Refactor**: Unificamos completamente la experiencia visual de inicio de sesión (`login.tsx` y `verify.tsx`) para que sea estructural y lógicamente idéntica a la sección de cambiar email en cuenta (`cuenta.tsx`).
+  - Ambas interfaces ahora comparten envolturas base (`SafeAreaView`, `KeyboardAvoidingView`, `ScrollView`).
+  - Se suprimió la dependencia en `TextInput` nativo crudo para visualización del token; en cambio, se importó el renderizado visual de puntos PIN con cursor parpadeante (`renderOtpDots()`).
+  - Manejo integral unificado de estado dinámico de bordes basado en tokens Tailwind (focus gray, error red).
+- **Auto-submit OTP Verification**: Añadida lógica `useEffect` a `verify.tsx` para efectuar automáticamente la llamada a Supabase Auth tan pronto el usuario introduce el sexto y último dígito.
+- **Manejo de Errores Global**: Ambas pantallas de autenticación descartaron los antiguos bloques de texto en línea para errores y ahora despachan notificaciones contextuales a través del componente `<Alert />` flotante y el pill de éxito `<Notification />`.
+- **Protección de Rate Limit**: El botón secundario "Reenviar código" en `verify.tsx` ahora invoca la lógica de protección de Supabase, activando visualmente la cuenta regresiva temporal (`cooldownSeconds`) si se golpea el límite de API.
+- **Login UI**: El campo de texto en login ya no tiene texto descriptivo flotante y solo muestra el botón de llamada a la acción ("Enviar código de 6 dígitos") si detecta una cadena en el `email` válida.
 
 
 ## [1.5.1] - 2026-04-02
@@ -137,3 +149,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **OTP Form Recovery**: Allowed the user to edit the email input natively during the `isVerifying` stage in `cuenta.tsx`. When edited, the system smoothly reverts to the initial email modification state, dropping the previous OTP code and error states.
 - **Keyboard Handling (Captura)**: Solved critical rendering bugs where the form was hidden under the native keyboard. Migrated back to a robust `KeyboardAvoidingView` with `behavior="padding"` while actively tracking OS keyboard heights and dismissing the numeric pad safely before triggering the DatePicker.
 - **Component Renaming**: Consolidated confusing legacy notification files strictly into `Alert.tsx` (large modals) and `Notification.tsx` (small floating pills).
+\n## [1.6.0] - 2026-04-05\n### Added\n- **UI Playground & Mock Environment**: Added `app/playground.tsx` as an isolated Kitchen Sink to test React Native UI components directly in the browser (`npm run web`).\n- Added `react-native-web` and `@expo/metro-runtime` dependencies to strictly support browser rendering of the Expo Router architecture.\n- Added an `EXPO_PUBLIC_USE_MOCKS` flag to bypass Supabase authentication and intercept API calls inside `services/api.ts` and `contexts/AuthContext.tsx`, replacing them with realistic async dummy data.

@@ -1,22 +1,30 @@
-import { useState } from 'react'
-import { KeyboardAvoidingView, Pressable, Text, View } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import React, { useState } from 'react'
+import { KeyboardAvoidingView, Platform, ScrollView, View, Text, Pressable } from 'react-native'
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useRouter } from 'expo-router'
 import { supabase } from '../../services/supabase'
 import { Input } from '../../components/ui/Input'
+import { Alert } from '../../components/ui/Alert'
 
 export default function LoginScreen() {
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const [isEmailFocused, setIsEmailFocused] = useState(false)
+  const [alertConfig, setAlertConfig] = useState<{ visible: boolean; message: string; type: 'warning' | 'error' | 'info' }>({ visible: false, message: '', type: 'info' })
+  
   const router = useRouter()
+  const insets = useSafeAreaInsets()
+
+  const showAlert = (message: string, type: 'warning' | 'error' | 'info') => {
+    setAlertConfig({ visible: true, message, type })
+    setTimeout(() => {
+      setAlertConfig(prev => ({ ...prev, visible: false }))
+    }, 3000)
+  }
 
   const handleSendOtp = async () => {
     if (!email.trim()) return
     setLoading(true)
-    setError(null)
-
-    console.log('Sending OTP to:', email.trim())
 
     const { error } = await supabase.auth.signInWithOtp({
       email: email.trim(),
@@ -28,16 +36,14 @@ export default function LoginScreen() {
     setLoading(false)
 
     if (error) {
-      console.error('OTP error:', error)
       if (error.message.includes('rate limit')) {
-        setError('Demasiados intentos. Esperá unos minutos y volvé a intentar.')
+        showAlert('Demasiados intentos. Esperá unos minutos y volvé a intentar.', 'error')
       } else {
-        setError(error.message)
+        showAlert(error.message, 'error')
       }
       return
     }
 
-    // Navigate to verify screen with email as parameter
     router.push({
       pathname: '/(auth)/verify',
       params: { email: email.trim() }
@@ -45,40 +51,79 @@ export default function LoginScreen() {
   }
 
   return (
-    <SafeAreaView className="flex-1 bg-background">
-      <KeyboardAvoidingView behavior={undefined} className="flex-1 justify-center px-6">
-        <View className="gap-6">
-          <View className="gap-2">
-            <Text className="text-white text-title font-bold">Ingresar</Text>
-            <Text className="text-muted-foreground text-body">
-              Te enviamos un código de 6 dígitos a tu email.
-            </Text>
+    <SafeAreaView edges={['top', 'left', 'right']} className="flex-1 bg-background">
+      <KeyboardAvoidingView 
+        className="flex-1"
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      >
+        <ScrollView
+          contentContainerStyle={{ 
+            flexGrow: 1, 
+            paddingHorizontal: 24,
+            paddingTop: 40,
+            paddingBottom: 220 + insets.bottom,
+            alignItems: 'center'
+          }}
+          keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}
+        >
+          <View className="w-full max-w-[350px] flex-col items-start gap-xl">
+            <View className="w-full flex-col items-start gap-sm">
+              <Text className="text-foreground font-['Inter'] text-title font-semibold leading-[normal]">
+                Ingresar
+              </Text>
+            </View>
+            
+            <View className="w-full flex-col items-center gap-xl">
+              
+              <View className="w-full flex-col items-start gap-sm">
+                <Text 
+                  className="text-muted-foreground font-['Inter'] text-body font-normal leading-[normal]"
+                  numberOfLines={1}
+                >
+                  Tu email
+                </Text>
+                
+                <View className="w-full relative justify-center">
+                  <Input 
+                    value={email}
+                    onChangeText={setEmail}
+                    onFocus={() => setIsEmailFocused(true)}
+                    onBlur={() => setIsEmailFocused(false)}
+                    keyboardType="email-address"
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    placeholder="tu@email.com"
+                    editable={!loading}
+                    className={`w-full ${isEmailFocused ? 'border-2 border-muted-foreground' : 'border border-transparent'}`}
+                  />
+                </View>
+              </View>
+
+              {email.trim().length > 0 && (
+                <View className="w-full flex-col items-center gap-lg">
+                  <Pressable
+                    onPress={handleSendOtp}
+                    disabled={loading}
+                    className={`w-full h-[56px] px-xl justify-center items-center rounded-[16px] bg-primary active:opacity-80 ${loading ? 'opacity-50' : ''}`}
+                  >
+                    <Text className="text-primary-foreground font-['Inter'] text-body font-semibold leading-[normal]">
+                      {loading ? 'Enviando...' : 'Enviar código de 6 dígitos'}
+                    </Text>
+                  </Pressable>
+                </View>
+              )}
+              
+            </View>
           </View>
-
-          <Input
-            placeholder="tu@email.com"
-            keyboardType="email-address"
-            autoCapitalize="none"
-            autoCorrect={false}
-            value={email}
-            onChangeText={setEmail}
-          />
-
-          {error && (
-            <Text className="text-destructive text-body">{error}</Text>
-          )}
-
-          <Pressable
-            onPress={handleSendOtp}
-            disabled={loading || !email.trim()}
-            className={`bg-white rounded-[16px] h-[56px] items-center justify-center active:opacity-80 ${loading || !email.trim() ? 'opacity-50' : ''}`}
-          >
-            <Text className="text-background text-menu font-medium">
-              {loading ? 'Enviando...' : 'Enviar código'}
-            </Text>
-          </Pressable>
-        </View>
+        </ScrollView>
       </KeyboardAvoidingView>
+
+      <Alert 
+        visible={alertConfig.visible} 
+        message={alertConfig.message} 
+        type={alertConfig.type}
+      />
     </SafeAreaView>
   )
 }
