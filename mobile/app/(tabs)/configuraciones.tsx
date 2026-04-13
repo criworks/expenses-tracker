@@ -149,7 +149,10 @@ export default function ConfigurationsScreen() {
           {/* Funcionamiento Section */}
           <View className="w-full flex-col">
             <SectionHeader title="Funcionamiento" />
-            <MenuItem title="Categorías" onPress={() => RNAlert.alert("Próximamente", "Configuración de categorías")} />
+            <MenuItem 
+              title="Categorías" 
+              onPress={() => router.push('/categorias')} 
+            />
             <MenuItem
               title="Mes contable"
               onPress={() => RNAlert.alert("Próximamente", "Configuración de mes contable")}
