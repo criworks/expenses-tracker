@@ -155,7 +155,7 @@ export default function ConfigurationsScreen() {
             />
             <MenuItem
               title="Mes contable"
-              onPress={() => RNAlert.alert("Próximamente", "Configuración de mes contable")}
+              onPress={() => router.push('/mes-contable')}
             />
           </View>
 
