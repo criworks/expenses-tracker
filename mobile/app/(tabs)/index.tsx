@@ -142,7 +142,7 @@ export default function DashboardScreen() {
             ) : (
               <View className="flex-col gap-sm w-full items-start">
                 <Pressable 
-                  className="flex-row items-center gap-xs active:opacity-80"
+                  className="flex-row items-center justify-start gap-xs active:opacity-80 py-2 -ml-2 px-2 rounded-lg"
                   onPress={() => router.navigate('/meses')}
                 >
                   <Text className="text-muted-foreground text-title font-normal leading-[normal]">
