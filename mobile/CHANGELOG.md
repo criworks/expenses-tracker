@@ -8,6 +8,8 @@
 
 ## [1.5.6] - 2026-04-12
 
+### Changed\n- **Navegación Histórica:** Se incrementó el área presible (`hit slop` mediante padding nativo) del selector de mes (`index.tsx`) para mejorar la precisión del toque al incluir tanto el texto del mes como el icono de `CaretRight` dentro del perímetro de contacto dinámico.\n
+
 ### Fixed\n- **Estilos Visuales (Android/Expo):** Se eliminó el plugin legacy `nativewind/babel` de la configuración de Babel (`mobile/babel.config.js`) para solucionar conflictos de inyección y renderizado con Metro en NativeWind v4.\n
 ### Changed
 - **UI Playground Mocker**: Extraída la configuración local (`mockFeedConfig`) desde el módulo `services/api.ts` a un archivo completamente nuevo `services/mockConfig.ts` para quebrar el Require Cycle fatal entre el API y el Contexto de Autenticación de Supabase.
