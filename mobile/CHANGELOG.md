@@ -186,3 +186,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Custom transparent Bottom Tab Bar (`GradientFooter`).
 - Filter by category utilizing Horizontal Scroll View.
 - Capture screen for adding new expenses with Keyboard Avoiding View.
+- **Componente OTP Reutilizable**: Se extrajo la lógica de renderizado de PIN visual (con el cursor intermitente de 500ms y los puntos reactivos) a un nuevo componente compartido `<OtpInput />` (`mobile/components/ui/OtpInput.tsx`). Esto asegura un comportamiento uniforme de los inputs de verificación a través de toda la aplicación.
