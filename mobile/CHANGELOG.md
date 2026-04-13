@@ -7,6 +7,8 @@
 
 
 ## [1.5.6] - 2026-04-12
+
+### Fixed\n- **Estilos Visuales (Android/Expo):** Se eliminó el plugin legacy `nativewind/babel` de la configuración de Babel (`mobile/babel.config.js`) para solucionar conflictos de inyección y renderizado con Metro en NativeWind v4.\n
 ### Changed
 - **UI Playground Mocker**: Extraída la configuración local (`mockFeedConfig`) desde el módulo `services/api.ts` a un archivo completamente nuevo `services/mockConfig.ts` para quebrar el Require Cycle fatal entre el API y el Contexto de Autenticación de Supabase.
 - **Iconografía Uniforme**: Substitución de todas las importaciones e instancias renderizadas de `<Feather>` por sus equivalentes nativos de `<Phosphor>` (`<Plus>`, `<Calendar>`, `<CaretDown>`) en los selectores de captura de form.
